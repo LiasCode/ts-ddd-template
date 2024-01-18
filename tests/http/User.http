@@ -10,3 +10,12 @@ Content-Type: application/json
   "email": "liasraul00@gmail.com",
   "password": "123456"
 }
+
+###
+POST http://localhost:3030/api/user/login
+Content-Type: application/json
+
+{
+  "email": "liasraul00@gmail.com",
+  "password": "123456"
+}

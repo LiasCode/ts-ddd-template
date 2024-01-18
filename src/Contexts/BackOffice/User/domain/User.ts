@@ -49,6 +49,10 @@ export class User extends Entity {
     );
   }
 
+  comparePassword(password: string): boolean {
+    return UserPassword.comparePassword(password, this.password.value);
+  }
+
   public getId(): UserId {
     return this.id;
   }
