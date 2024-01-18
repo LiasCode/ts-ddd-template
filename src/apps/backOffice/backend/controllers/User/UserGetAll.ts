@@ -19,7 +19,7 @@ export class UserGetAll implements Controller {
 
     res.status(StatusCodes.OK).json({
       success: true,
-      data: users.map((user) => user.toPrimitives()),
+      data: users.map((user) => user.toPrimitivesSafeData()),
       size: users?.length,
     });
   }

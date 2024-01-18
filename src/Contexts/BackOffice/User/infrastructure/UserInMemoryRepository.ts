@@ -9,6 +9,8 @@ export class UserInMemoryRepository implements UserRepository {
   constructor() {}
 
   async save(user: User): Promise<void> {
+    console.log({ user: user.toPrimitives() });
+    
     const userIndex = users.findIndex((u) => u.id === user.getId().value);
     if (userIndex === -1) {
       users.push(user.toPrimitives());

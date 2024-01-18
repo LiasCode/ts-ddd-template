@@ -37,7 +37,7 @@ export class UserPostCreate implements Controller {
 
     res.status(StatusCodes.OK).json({
       success: true,
-      data: newUser.toPrimitives(),
+      data: newUser.toPrimitivesSafeData(),
       size: 0,
     });
   }

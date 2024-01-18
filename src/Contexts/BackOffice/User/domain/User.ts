@@ -20,22 +20,23 @@ export class User extends Entity {
   }
 
   static create(name: UserName, email: UserEmail, password: UserPassword): User {
-    return new User(UserId.random(), name, email, password);
+    return new User(UserId.random(), name, email, UserPassword.create(password.value));
   }
 
   public toPrimitives(): UserPrimitves {
-    console.log({
-      id: this.id.value,
-      name: this.name.value,
-      email: this.email.value,
-      password: this.password.value,
-    });
-
     return {
       id: this.id.value,
       name: this.name.value,
       email: this.email.value,
       password: this.password.value,
+    };
+  }
+
+  public toPrimitivesSafeData(): Omit<UserPrimitves, "password"> {
+    return {
+      id: this.id.value,
+      name: this.name.value,
+      email: this.email.value,
     };
   }
 
