@@ -6,7 +6,7 @@ import { UserPassword } from "./UserPassword";
 import { UserPrimitves } from "./UserPrimitives";
 
 export class User extends Entity {
-  private id: UserId;
+  private readonly id: UserId;
   private name: UserName;
   private email: UserEmail;
   private password: UserPassword;
