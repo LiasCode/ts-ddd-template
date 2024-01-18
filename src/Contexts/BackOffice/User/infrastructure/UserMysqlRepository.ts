@@ -11,19 +11,14 @@ export class UserMySqlRepository implements UserRepository {
   async save(user: User): Promise<void> {
     ExecQueryWithValues<UserPrimitves>(
       `INSERT INTO ${this.userMysqlDbName} (id, name, email, password) VALUES (?, ?, ?, ?)`,
-      [
-        user.getId().getValue(),
-        user.getName().getValue(),
-        user.getEmail().getValue(),
-        user.getPassword().getValue(),
-      ]
+      [user.getId().value, user.getName().value, user.getEmail().value, user.getPassword().value]
     );
   }
 
   async findById(id: UserId): Promise<User | null> {
     try {
       const user = await ExecQuery<User>(
-        `SELECT * FROM ${this.userMysqlDbName}} WHERE id = ${id.getValue()}`
+        `SELECT * FROM ${this.userMysqlDbName}} WHERE id = ${id.value}`
       );
       return user;
     } catch (error) {

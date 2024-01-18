@@ -1,16 +1,18 @@
+import { Entity } from "../../../shared/domain/Entity";
 import { UserEmail } from "./UserEmail";
 import { UserId } from "./UserId";
 import { UserName } from "./UserName";
 import { UserPassword } from "./UserPassword";
 import { UserPrimitves } from "./UserPrimitives";
 
-export class User {
+export class User extends Entity {
   private id: UserId;
   private name: UserName;
   private email: UserEmail;
   private password: UserPassword;
 
   constructor(id: UserId, name: UserName, email: UserEmail, password: UserPassword) {
+    super();
     this.id = id;
     this.name = name;
     this.email = email;
@@ -18,16 +20,32 @@ export class User {
   }
 
   static create(name: UserName, email: UserEmail, password: UserPassword): User {
-    return new User(new UserId(null), name, email, password);
+    return new User(UserId.random(), name, email, password);
   }
 
   public toPrimitives(): UserPrimitves {
+    console.log({
+      id: this.id.value,
+      name: this.name.value,
+      email: this.email.value,
+      password: this.password.value,
+    });
+    
     return {
-      id: this.id.getValue(),
-      name: this.name.getValue(),
-      email: this.email.getValue(),
-      password: this.password.getValue(),
+      id: this.id.value,
+      name: this.name.value,
+      email: this.email.value,
+      password: this.password.value,
     };
+  }
+
+  public static fromPrimitives(plainData: UserPrimitves): User {
+    return new User(
+      new UserId(plainData.id),
+      new UserName(plainData.name),
+      new UserEmail(plainData.email),
+      new UserPassword(plainData.password)
+    );
   }
 
   public getId(): UserId {

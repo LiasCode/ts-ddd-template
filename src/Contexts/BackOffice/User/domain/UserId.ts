@@ -1,14 +1,7 @@
-export class UserId {
-  private value: string;
+import { Uuid } from "../../../shared/domain/Uuid";
 
-  constructor(value: string | null) {
-    if (value === null) {
-      this.value = Math.random().toString();
-    } else {
-      this.value = value;
-    }
-  }
-  public getValue() {
-    return this.value;
+export class UserId extends Uuid {
+  constructor(value: string) {
+    super(value);
   }
 }

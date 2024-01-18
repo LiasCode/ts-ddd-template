@@ -3,8 +3,8 @@ import { CheckConnection } from "../../../../Contexts/shared/infrastructure/Chec
 
 export const redisClient = createClient({
   socket: {
-    host: process.env.CACHE_IP || "localhost",
-    port: Number(process.env.CACHE_PORT) || 6379,
+    host: process.env.REDIS_DB_IP || "localhost",
+    port: Number(process.env.REDIS_DB_PORT) || 6379,
   },
 });
 

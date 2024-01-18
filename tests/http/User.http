@@ -1,0 +1,12 @@
+###
+GET http://localhost:3030/api/user
+
+###
+POST http://localhost:3030/api/user
+Content-Type: application/json
+
+{
+  "name": "Raul",
+  "email": "liasraul00@gmail.com",
+  "password": "123456"
+}

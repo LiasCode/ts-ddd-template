@@ -1,17 +1,15 @@
 export class Logger {
-  private logLevel: string;
+  constructor() {}
 
-  constructor(logLevel: "debug" | "info" | "error") {
-    this.logLevel = logLevel;
+  public info(message: string): void {
+    console.log("[INFO]: ", message);
   }
-
-  public log(message: string): void {
-    if (this.logLevel === "debug") {
-      console.log(`[DEBUG] ${message}`);
-    } else if (this.logLevel === "info") {
-      console.log(`[INFO] ${message}`);
-    } else if (this.logLevel === "error") {
-      console.error(`[ERROR] ${message}`);
-    }
+  public error(message: string): void {
+    console.error("[ERROR]: ", message);
+  }
+  public warn(message: string): void {
+    console.warn("[WARN]: ", message);
   }
 }
+
+export const logger = new Logger();

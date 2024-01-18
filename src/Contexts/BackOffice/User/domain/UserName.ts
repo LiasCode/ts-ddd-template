@@ -1,11 +1,7 @@
+import { ValueObject } from "../../../shared/domain/ValueObject";
 
-export class UserName {
-  private value: string;
-
+export class UserName extends ValueObject<string> {
   constructor(value: string) {
-    this.value = value;
-  }
-  public getValue() {
-    return this.value;
+    super(value);
   }
 }

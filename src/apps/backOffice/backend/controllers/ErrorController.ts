@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { logger } from "../Logger";
 
 export const ErrorController = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  console.log("!!!!! ERROR CONTROLLER !!!!!");
-  console.error(err); // Log the error for debugging purposes
+  logger.error("!!!!! ERROR CONTROLLER !!!!!");
+  logger.error(err.message);
 
   // Handle specific types of errors
   // if (err instanceof CustomError) {
