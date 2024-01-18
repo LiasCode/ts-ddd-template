@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import { Controller, ControllerAction } from "../Controller";
 import { Request, Response } from "express";
-import { UserFinder } from "../../../../../Contexts/BackOffice/User/application/UserFinder";
-import { UserInMemoryRepository } from "../../../../../Contexts/BackOffice/User/infrastructure/UserInMemoryRepository";
+import { UserFinder } from "../../../../../Contexts/Shop/User/application/UserFinder";
+import { UserInMemoryRepository } from "../../../../../Contexts/Shop/User/infrastructure/UserInMemoryRepository";
 
 export class UserGetAll implements Controller {
   constructor() {

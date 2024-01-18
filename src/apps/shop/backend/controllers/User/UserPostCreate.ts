@@ -1,13 +1,13 @@
 import { StatusCodes } from "http-status-codes";
 import { Controller, ControllerAction } from "../Controller";
 import { Request, Response } from "express";
-import { UserInMemoryRepository } from "../../../../../Contexts/BackOffice/User/infrastructure/UserInMemoryRepository";
+import { UserInMemoryRepository } from "../../../../../Contexts/Shop/User/infrastructure/UserInMemoryRepository";
+import { UserCreator } from "../../../../../Contexts/Shop/User/application/UserCreator";
 import { z } from "zod";
-import { UserLogger } from "../../../../../Contexts/BackOffice/User/application/UserLogger";
-import jwt from "jsonwebtoken";
 
-export class UserPostLogger implements Controller {
+export class UserPostCreate implements Controller {
   private bodySchema = z.object({
+    name: z.string(),
     email: z.string(),
     password: z.string(),
   });
@@ -24,19 +24,16 @@ export class UserPostLogger implements Controller {
       return;
     }
 
-    const newUser = await new UserLogger(new UserInMemoryRepository()).run(
+    const newUser = await new UserCreator(new UserInMemoryRepository()).run(
+      body.name,
       body.email,
       body.password
     );
 
     if (!newUser) {
-      res.status(StatusCodes.BAD_REQUEST).json({ success: false, message: "Can't Login User" });
+      res.status(StatusCodes.BAD_REQUEST).json({ success: false, message: "Can't Create User" });
       return;
     }
-
-    const token = jwt.sign(newUser.getId().value, "secret");
-
-    res.cookie("auth-user-token", token);
 
     res.status(StatusCodes.OK).json({
       success: true,
@@ -45,7 +42,7 @@ export class UserPostLogger implements Controller {
     });
   }
 
-  private parseBody(body: any): { email: string; password: string } | null {
+  private parseBody(body: any): { name: string; email: string; password: string } | null {
     const bodyParsed = this.bodySchema.safeParse(body);
     if (!bodyParsed.success) return null;
     return bodyParsed.data;
