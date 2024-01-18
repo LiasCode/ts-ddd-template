@@ -30,7 +30,7 @@ export class User extends Entity {
       email: this.email.value,
       password: this.password.value,
     });
-    
+
     return {
       id: this.id.value,
       name: this.name.value,
