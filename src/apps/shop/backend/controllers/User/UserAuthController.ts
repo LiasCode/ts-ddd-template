@@ -1,13 +1,13 @@
 import { StatusCodes } from "http-status-codes";
 import { Controller, ControllerAction } from "../Controller";
 import { NextFunction, Request, Response } from "express";
-import { UserInMemoryRepository } from "../../../../../Contexts/Shop/User/infrastructure/UserInMemoryRepository";
 import { UserByIdFinder } from "../../../../../Contexts/Shop/User/application/UserByIdFinder";
 import { UserAuthToken } from "../../../../../Contexts/Shop/User/infrastructure/UserAuthToken";
 import { UserId } from "../../../../../Contexts/Shop/User/domain/UserId";
+import { UserRepository } from "../../../../../Contexts/Shop/User/domain/UserRepository";
 
 export class UserAuthController implements Controller {
-  constructor() {
+  constructor(private readonly userRepository: UserRepository) {
     this.action = this.action.bind(this);
   }
 
@@ -38,7 +38,7 @@ export class UserAuthController implements Controller {
       return;
     }
 
-    const user = await new UserByIdFinder(new UserInMemoryRepository()).run(
+    const user = await new UserByIdFinder(this.userRepository).run(
       new UserId(userTokenPayLoad.userId)
     );
 

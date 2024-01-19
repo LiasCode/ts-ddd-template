@@ -1,10 +1,10 @@
 import { StatusCodes } from "http-status-codes";
 import { Controller, ControllerAction } from "../Controller";
 import { Request, Response } from "express";
-import { UserInMemoryRepository } from "../../../../../Contexts/Shop/User/infrastructure/UserInMemoryRepository";
 import { z } from "zod";
 import { UserLogger } from "../../../../../Contexts/Shop/User/application/UserLogger";
 import { UserAuthToken } from "../../../../../Contexts/Shop/User/infrastructure/UserAuthToken";
+import { UserRepository } from "../../../../../Contexts/Shop/User/domain/UserRepository";
 
 export class UserPostLogger implements Controller {
   private bodySchema = z.object({
@@ -12,7 +12,7 @@ export class UserPostLogger implements Controller {
     password: z.string(),
   });
 
-  constructor() {
+  constructor(private readonly userRepository: UserRepository) {
     this.action = this.action.bind(this);
   }
 
@@ -24,7 +24,7 @@ export class UserPostLogger implements Controller {
       return;
     }
 
-    const user = await new UserLogger(new UserInMemoryRepository()).run(body.email, body.password);
+    const user = await new UserLogger(this.userRepository).run(body.email, body.password);
 
     if (!user) {
       res.status(StatusCodes.BAD_REQUEST).json({ success: false, message: "Can't Login User" });

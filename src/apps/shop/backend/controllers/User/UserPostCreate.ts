@@ -1,9 +1,9 @@
 import { StatusCodes } from "http-status-codes";
 import { Controller, ControllerAction } from "../Controller";
 import { Request, Response } from "express";
-import { UserInMemoryRepository } from "../../../../../Contexts/Shop/User/infrastructure/UserInMemoryRepository";
 import { UserCreator } from "../../../../../Contexts/Shop/User/application/UserCreator";
 import { z } from "zod";
+import { UserRepository } from "../../../../../Contexts/Shop/User/domain/UserRepository";
 
 export class UserPostCreate implements Controller {
   private bodySchema = z.object({
@@ -12,7 +12,7 @@ export class UserPostCreate implements Controller {
     password: z.string(),
   });
 
-  constructor() {
+  constructor(private readonly userRepository: UserRepository) {
     this.action = this.action.bind(this);
   }
 
@@ -24,7 +24,7 @@ export class UserPostCreate implements Controller {
       return;
     }
 
-    const newUser = await new UserCreator(new UserInMemoryRepository()).run(
+    const newUser = await new UserCreator(this.userRepository).run(
       body.name,
       body.email,
       body.password
