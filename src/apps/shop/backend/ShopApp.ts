@@ -8,30 +8,30 @@ import { GlobalRouter } from "./router";
 import cookieParser from "cookie-parser";
 
 // --------- SETUP APP -------------
-export const App: Application = express();
+export const ShopApp: Application = express();
 
 // ---------- APP SETTINGS ------------
-App.set("PORT", process.env.PORT || 3030);
-App.disable("x-powered-by");
+ShopApp.set("PORT", process.env.PORT || 3030);
+ShopApp.disable("x-powered-by");
 
 // ---------- MIDDLEWARES ---------
-App.use(compression());
-App.use(helmet());
-App.use(morgan("dev"));
-App.use(cors());
-App.use(bodyParser.urlencoded({ extended: false }));
-App.use(bodyParser.json());
-App.use(bodyParser.text());
-App.use(bodyParser.raw());
-App.use(cookieParser());
+ShopApp.use(compression());
+ShopApp.use(helmet());
+ShopApp.use(morgan("dev"));
+ShopApp.use(cors());
+ShopApp.use(bodyParser.urlencoded({ extended: false }));
+ShopApp.use(bodyParser.json());
+ShopApp.use(bodyParser.text());
+ShopApp.use(bodyParser.raw());
+ShopApp.use(cookieParser());
 
 // ------------- ROUTER ------------
-App.use("/", GlobalRouter);
+ShopApp.use("/", GlobalRouter);
 
-App.once("error", (error) => {
+ShopApp.once("error", (error) => {
   console.error({ error });
 });
 
-App.on("uncaughtException", (error) => {
+ShopApp.on("uncaughtException", (error) => {
   console.error({ uncaughtException: error });
 });

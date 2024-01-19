@@ -1,11 +1,11 @@
-import { logger } from "./Logger";
+import http from "node:http";
 import "./envConfig";
+import { logger } from "./Logger";
+import { ShopApp } from "./ShopApp";
 
-import { App } from "./server-app";
 // ----------- INIT SERVER ---------
-
-App.listen(App.get("PORT"), () => {
-  logger.info("Server listen on PORT: " + App.get("PORT"));
+http.createServer(ShopApp).listen(ShopApp.get("PORT"), () => {
+  logger.info("Server listen on PORT: " + ShopApp.get("PORT"));
 });
 
 process.on("uncaughtException", (error) => {
