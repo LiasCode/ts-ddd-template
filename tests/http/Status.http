@@ -1,8 +1,11 @@
-###
-GET http://localhost:3030/actuator/health
+@url = http://localhost:3030
+
 
 ###
-GET http://localhost:3030/health
+GET {{url}}/actuator/health
 
 ###
-GET http://localhost:3030/status
+GET {{url}}/health
+
+###
+GET {{url}}/status
