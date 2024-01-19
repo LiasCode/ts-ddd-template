@@ -1,4 +1,6 @@
-@url = http://localhost:3030/api/user
+@localUrl = http://localhost:3030/api/user
+@devUrl = http://localhost:3030/api/user
+@url = {{localUrl}}
 @userId = cc1cd0dd-b08e-459b-9c49-68ee860c5ae1
 
 ###

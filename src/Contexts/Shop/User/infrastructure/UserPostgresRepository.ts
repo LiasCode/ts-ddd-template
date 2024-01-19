@@ -24,18 +24,23 @@ export class UserPostgresRepository implements UserRepository {
           user.getName().value,
           user.getPassword().value,
         ];
-        await ExecQuery(query, values);
+        const res = await ExecQuery<UserPrimitves>(query, values);
+        if (!res) {
+          throw new Error("Error creating new user");
+        }
+        return;
       }
-      // if user exists update
-      else {
-        const query = `UPDATE ${UserPostgresRepository.TABLE_NAME} SET email = $1, name = $2, password = $3 WHERE id = $4`;
-        const values = [
-          user.getEmail().value,
-          user.getName().value,
-          user.getPassword().value,
-          user.getId().value,
-        ];
-        await ExecQuery(query, values);
+      // if user exists then update it
+      const query = `UPDATE ${UserPostgresRepository.TABLE_NAME} SET email = $1, name = $2, password = $3 WHERE id = $4`;
+      const values = [
+        user.getEmail().value,
+        user.getName().value,
+        user.getPassword().value,
+        user.getId().value,
+      ];
+      const res = await ExecQuery<UserPrimitves>(query, values);
+      if (!res) {
+        throw new Error("Error updating user");
       }
     } catch (error) {
       console.error(error);
