@@ -1,11 +1,11 @@
-import { Entity } from "../../../shared/domain/Entity";
+import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
 import { UserEmail } from "./UserEmail";
 import { UserId } from "./UserId";
 import { UserName } from "./UserName";
 import { UserPassword } from "./UserPassword";
 import { UserPrimitves } from "./UserPrimitives";
 
-export class User extends Entity {
+export class User extends AggregateRoot {
   private readonly id: UserId;
   private name: UserName;
   private email: UserEmail;
