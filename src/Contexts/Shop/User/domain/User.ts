@@ -62,25 +62,13 @@ export class User extends AggregateRoot {
     return this.name;
   }
 
-  public setName(name: UserName): void {
-    this.name = name;
-  }
-
   // Getter y setter para el atributo 'email'
   public getEmail(): UserEmail {
     return this.email;
   }
 
-  public setEmail(email: UserEmail): void {
-    this.email = email;
-  }
-
   // Getter y setter para el atributo 'password'
   public getPassword(): UserPassword {
     return this.password;
-  }
-
-  public setPassword(password: UserPassword): void {
-    this.password = password;
   }
 }
