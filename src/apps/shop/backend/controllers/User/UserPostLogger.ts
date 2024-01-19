@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { UserInMemoryRepository } from "../../../../../Contexts/Shop/User/infrastructure/UserInMemoryRepository";
 import { z } from "zod";
 import { UserLogger } from "../../../../../Contexts/Shop/User/application/UserLogger";
-import jwt from "jsonwebtoken";
+import { UserAuthToken } from "../../../../../Contexts/Shop/User/infrastructure/UserAuthToken";
 
 export class UserPostLogger implements Controller {
   private bodySchema = z.object({
@@ -24,23 +24,20 @@ export class UserPostLogger implements Controller {
       return;
     }
 
-    const newUser = await new UserLogger(new UserInMemoryRepository()).run(
-      body.email,
-      body.password
-    );
+    const user = await new UserLogger(new UserInMemoryRepository()).run(body.email, body.password);
 
-    if (!newUser) {
+    if (!user) {
       res.status(StatusCodes.BAD_REQUEST).json({ success: false, message: "Can't Login User" });
       return;
     }
 
-    const token = jwt.sign(newUser.getId().value, "secret");
+    const token = await UserAuthToken.createJWT(user);
 
-    res.cookie("auth-user-token", token);
+    res.cookie(UserAuthToken.getCookieName(), token);
 
     res.status(StatusCodes.OK).json({
       success: true,
-      data: newUser.toPrimitivesSafeData(),
+      data: user.toPrimitivesSafeData(),
       size: 0,
     });
   }
