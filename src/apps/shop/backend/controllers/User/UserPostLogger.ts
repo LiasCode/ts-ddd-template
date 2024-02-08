@@ -7,7 +7,7 @@ import { UserAuthToken } from "../../../../../Contexts/Shop/User/infrastructure/
 import { UserRepository } from "../../../../../Contexts/Shop/User/domain/UserRepository";
 
 export class UserPostLogger implements Controller {
-  private bodySchema = z.object({
+  private readonly bodySchema = z.object({
     email: z.string(),
     password: z.string(),
   });

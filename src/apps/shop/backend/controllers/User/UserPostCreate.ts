@@ -6,7 +6,7 @@ import { z } from "zod";
 import { UserRepository } from "../../../../../Contexts/Shop/User/domain/UserRepository";
 
 export class UserPostCreate implements Controller {
-  private bodySchema = z.object({
+  private readonly bodySchema = z.object({
     name: z.string(),
     email: z.string(),
     password: z.string(),
