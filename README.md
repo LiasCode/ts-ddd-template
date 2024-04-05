@@ -1,2 +1,1 @@
 # Typescript DDD Template
-

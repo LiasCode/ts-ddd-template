@@ -3,9 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "allowJs": true,
-    "target": "es6",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "ESNext",
+    "module": "CommonJS",
     "esModuleInterop": true,
     "alwaysStrict": true,
     "allowSyntheticDefaultImports": true,
@@ -13,10 +12,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "experimentalDecorators": false,
+    "experimentalDecorators": true,
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["./src", "./tests"],
+  "include": ["./src"],
   "exclude": ["node_modules"]
 }
